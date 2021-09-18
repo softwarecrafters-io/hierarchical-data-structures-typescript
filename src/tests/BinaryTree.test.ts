@@ -37,7 +37,7 @@ describe('The binary tree query', () => {
 	});
 });
 
-describe.only('Binary tree mapper', () => {
+describe('Binary tree mapper', () => {
 	it('iterates transversal by level', () => {
 		const binaryTree = createPerfectBinaryTreeWithOneLevel();
 
@@ -72,12 +72,20 @@ describe.only('Binary tree mapper', () => {
 		expect(result).toEqual(['a', 'b', 'c', 'd']);
 	});
 
-	it.only('transforms a given array to a binary tree by iterating transversal', () => {
+	it('transforms a given array to a binary tree by iterating transversal', () => {
 		const elements = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
 
 		const result = BinaryTreeMapper.fromArrayToBinaryTreeTransversal(elements);
 
 		expect(result).toEqual(createPerfectBinaryTreeWithTwoLevels());
+	});
+
+	it('transforms a given binary tree into a formatted string', () => {
+		const binaryTree = createPerfectBinaryTreeWithTwoLevels();
+
+		console.log(BinaryTreeMapper.toString(binaryTree));
+
+		expect(true).toEqual(true);
 	});
 });
 

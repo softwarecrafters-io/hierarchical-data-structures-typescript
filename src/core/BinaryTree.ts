@@ -1,5 +1,3 @@
-import { Maybe } from 'monet';
-
 export class BinaryTree<T> {
 	root: T;
 	left: BinaryTree<T>;
@@ -14,17 +12,11 @@ export class BinaryTree<T> {
 	}
 
 	setLeft(element: T) {
-		return (this.left = BinaryTree.create(element));
+		this.left = BinaryTree.create(element);
 	}
 
 	setRight(element: T) {
-		return (this.right = BinaryTree.create(element));
-	}
-
-	insert(element: T) {
-		if (this.left == null) {
-			this.setLeft(element);
-		}
+		this.right = BinaryTree.create(element);
 	}
 }
 
@@ -124,5 +116,17 @@ export class BinaryTreeMapper {
 			}
 		}
 		return root;
+	}
+
+	static toString<T extends { toString: () => string }>(node: BinaryTree<T>) {
+		const height = BinaryTreeQuery.calculateHeight(node);
+		const levels = Array.from({ length: height }, (_, i) => i);
+		return levels
+			.map((level) =>
+				BinaryTreeMapper.iterateTransversal(node, level)
+					.map((e) => e.toString())
+					.reduce((p, c, i) => p + (i % 2 == 0 ? ' L:' + level : ' R:' + level) + c, '')
+			)
+			.reduce((p, c) => p + c + '\n', '');
 	}
 }
